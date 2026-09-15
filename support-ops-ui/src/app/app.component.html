@@ -1,0 +1,21 @@
+<nav style="background-color: var(--bg-surface); border-bottom: 1px solid var(--border-color); padding: 1rem 0;">
+  <div class="container flex justify-between items-center">
+    <div class="flex items-center gap-4">
+      <div style="width: 32px; height: 32px; background: linear-gradient(135deg, var(--primary), var(--primary-hover)); border-radius: 8px; display: flex; align-items: center; justify-content: center; color: white; font-weight: bold; font-size: 1.2rem; box-shadow: var(--shadow-glow);">
+        S
+      </div>
+      <span style="font-weight: 700; font-size: 1.25rem; letter-spacing: -0.025em; color: white;">Support<span style="color: var(--primary);">Ops</span></span>
+    </div>
+    <div class="flex items-center gap-4">
+      <a routerLink="/" class="btn btn-secondary" style="border: none;">Dashboard</a>
+      <a routerLink="/incidents" class="btn btn-secondary" style="border: none;">Incidentes</a>
+      <div style="width: 36px; height: 36px; background-color: var(--bg-surface-hover); border-radius: 50%; border: 1px solid var(--border-color-light); display: flex; align-items: center; justify-content: center;">
+        <span style="font-size: 0.875rem; font-weight: 600; color: var(--text-secondary);">AD</span>
+      </div>
+    </div>
+  </div>
+</nav>
+
+<main>
+  <router-outlet></router-outlet>
+</main>

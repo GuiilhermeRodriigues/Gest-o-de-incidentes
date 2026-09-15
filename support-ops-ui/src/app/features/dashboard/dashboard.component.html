@@ -1,0 +1,63 @@
+<div class="container animate-fade-in" style="padding-top: 2rem;">
+  <div class="flex justify-between items-center" style="margin-bottom: 2rem;">
+    <div>
+      <h1 style="margin-bottom: 0.25rem;">Painel de Sustentação</h1>
+      <p style="color: var(--text-secondary);">Visão geral dos incidentes de TI ativos na plataforma.</p>
+    </div>
+    <button class="btn btn-primary animate-pulse-glow">+ Novo Incidente</button>
+  </div>
+
+  <div class="grid grid-cols-3 gap-6" style="margin-bottom: 2rem;">
+    <div class="card glass">
+      <h4 style="color: var(--text-secondary); margin-bottom: 0.5rem;">Abertos/Em Andamento</h4>
+      <div style="font-size: 2.5rem; font-weight: 700; color: var(--primary);">{{ openCount }}</div>
+    </div>
+    <div class="card glass">
+      <h4 style="color: var(--text-secondary); margin-bottom: 0.5rem;">Resolvidos</h4>
+      <div style="font-size: 2.5rem; font-weight: 700; color: var(--success);">{{ resolvedCount }}</div>
+    </div>
+    <div class="card glass">
+      <h4 style="color: var(--text-secondary); margin-bottom: 0.5rem;">Críticos</h4>
+      <div style="font-size: 2.5rem; font-weight: 700; color: var(--danger);">{{ criticalCount }}</div>
+    </div>
+  </div>
+
+  <div class="card glass">
+    <div class="flex justify-between items-center" style="margin-bottom: 1.5rem;">
+      <h3 style="margin: 0;">Incidentes Recentes</h3>
+      <a routerLink="/incidents" class="btn btn-secondary">Ver Todos</a>
+    </div>
+
+    <div class="table-container">
+      <table class="table">
+        <thead>
+          <tr>
+            <th>ID</th>
+            <th>Título</th>
+            <th>Aplicação</th>
+            <th>Prioridade</th>
+            <th>Status</th>
+            <th>Ação</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let incident of incidents.slice(0, 5)">
+            <td style="color: var(--text-secondary); font-family: monospace;">{{ incident.number }}</td>
+            <td style="font-weight: 500;">{{ incident.title }}</td>
+            <td>{{ incident.applicationName }}</td>
+            <td><span class="badge" [ngClass]="getPriorityClass(incident.priority)">{{ getPriorityLabel(incident.priority) }}</span></td>
+            <td><span class="badge" [ngClass]="incident.status === 5 ? 'badge-success' : 'badge-info'">{{ getStatusLabel(incident.status) }}</span></td>
+            <td>
+              <a [routerLink]="['/incidents', incident.id]" class="btn btn-secondary" style="padding: 0.25rem 0.75rem; font-size: 0.75rem;">Detalhes</a>
+            </td>
+          </tr>
+          <tr *ngIf="incidents.length === 0">
+            <td colspan="6" style="text-align: center; padding: 2rem; color: var(--text-secondary);">
+              Nenhum incidente encontrado.
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>

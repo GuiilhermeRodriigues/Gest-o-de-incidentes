@@ -1,0 +1,24 @@
+# Node
+node_modules/
+dist/
+.angular/
+npm-debug.log*
+yarn-error.log*
+yarn-debug.log*
+
+# .NET / C#
+bin/
+obj/
+*.user
+*.userosscache
+*.sln.docstates
+.vs/
+*.log
+*.sqlite
+*.db
+
+# macOS
+.DS_Store
+
+# Windows
+Thumbs.db

@@ -1,0 +1,70 @@
+<div class="container animate-fade-in" style="padding-top: 2rem; padding-bottom: 2rem;" *ngIf="incident">
+  <div class="flex justify-between items-center" style="margin-bottom: 2rem;">
+    <div>
+      <div class="flex items-center gap-2" style="margin-bottom: 0.5rem;">
+        <h1 style="margin: 0;">{{ incident.number }}</h1>
+        <span class="badge badge-info">{{ getStatusLabel(incident.status) }}</span>
+      </div>
+      <h2 style="color: var(--text-secondary); font-weight: 500;">{{ incident.title }}</h2>
+    </div>
+    <div class="flex gap-4">
+      <a routerLink="/incidents" class="btn btn-secondary">Voltar</a>
+      <button class="btn btn-success" style="background-color: var(--success); color: white;" (click)="resolveIncident()" *ngIf="incident.status !== 5 && incident.status !== 6">
+        ✅ Resolver Chamado
+      </button>
+      <button class="btn btn-primary" (click)="analyzeIncident()" [disabled]="isAnalyzing">
+        <span *ngIf="!isAnalyzing">🤖 Analisar com IA</span>
+        <span *ngIf="isAnalyzing">Analisando...</span>
+      </button>
+    </div>
+  </div>
+
+  <div class="grid grid-cols-3 gap-6">
+    <div class="card glass" style="grid-column: span 2;">
+      <h3 style="margin-bottom: 1rem; border-bottom: 1px solid var(--border-color); padding-bottom: 0.5rem;">Detalhes</h3>
+      <p style="white-space: pre-wrap; color: var(--text-secondary); margin-bottom: 2rem;">{{ incident.description }}</p>
+
+      <div *ngIf="aiAnalysis" class="card animate-fade-in" style="background-color: var(--bg-surface-elevated); border-color: var(--primary-light);">
+        <div class="flex items-center gap-2" style="margin-bottom: 1rem;">
+          <h3 style="margin: 0; color: var(--primary);">🤖 Análise da IA</h3>
+          <span class="badge badge-warning" *ngIf="aiAnalysis.confidenceLevel === 'Médio'">Confiança Média</span>
+        </div>
+        
+        <h4 style="color: var(--text-secondary); margin-bottom: 0.25rem;">Causa Provável:</h4>
+        <p style="margin-bottom: 1rem;">{{ aiAnalysis.possibleCause }}</p>
+        
+        <h4 style="color: var(--text-secondary); margin-bottom: 0.25rem;">Evidência:</h4>
+        <p style="margin-bottom: 1rem;">{{ aiAnalysis.evidence }}</p>
+
+        <h4 style="color: var(--text-secondary); margin-bottom: 0.25rem;">Sugestões de Resolução:</h4>
+        <pre style="background: rgba(0,0,0,0.2); padding: 1rem; border-radius: 4px; white-space: pre-wrap;">{{ aiAnalysis.suggestions }}</pre>
+      </div>
+    </div>
+
+    <div class="flex-col gap-6">
+      <div class="card glass">
+        <h3 style="margin-bottom: 1rem; border-bottom: 1px solid var(--border-color); padding-bottom: 0.5rem;">Informações</h3>
+        
+        <div style="margin-bottom: 1rem;">
+          <div style="color: var(--text-muted); font-size: 0.75rem; text-transform: uppercase;">Aplicação</div>
+          <div>{{ incident.applicationName }}</div>
+        </div>
+        
+        <div style="margin-bottom: 1rem;">
+          <div style="color: var(--text-muted); font-size: 0.75rem; text-transform: uppercase;">Prioridade</div>
+          <div>{{ getPriorityLabel(incident.priority) }}</div>
+        </div>
+        
+        <div style="margin-bottom: 1rem;">
+          <div style="color: var(--text-muted); font-size: 0.75rem; text-transform: uppercase;">Abertura</div>
+          <div>{{ incident.openedAt | date:'short' }}</div>
+        </div>
+        
+        <div style="margin-bottom: 1rem;">
+          <div style="color: var(--text-muted); font-size: 0.75rem; text-transform: uppercase;">Prazo SLA</div>
+          <div>{{ incident.slaDeadline | date:'short' }}</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

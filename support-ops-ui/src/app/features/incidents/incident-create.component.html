@@ -1,0 +1,78 @@
+<div class="container animate-fade-in" style="padding-top: 2rem; max-width: 800px;">
+  <div class="flex justify-between items-center" style="margin-bottom: 2rem;">
+    <div>
+      <h1 style="margin-bottom: 0.25rem;">Novo Incidente</h1>
+      <p style="color: var(--text-secondary);">Preencha os detalhes para abrir um novo chamado de TI.</p>
+    </div>
+    <a routerLink="/incidents" class="btn btn-secondary">Cancelar</a>
+  </div>
+
+  <div class="card glass">
+    <form (ngSubmit)="onSubmit()">
+      <div class="form-group">
+        <label class="form-label">Título</label>
+        <input type="text" class="form-input" name="title" [(ngModel)]="formData.title" required placeholder="Resumo do problema">
+      </div>
+
+      <div class="form-group">
+        <label class="form-label">Descrição Completa</label>
+        <textarea class="form-input" name="description" [(ngModel)]="formData.description" required rows="5" placeholder="Detalhes, passos para reproduzir, mensagens de erro..."></textarea>
+      </div>
+
+      <div class="grid grid-cols-2 gap-4">
+        <div class="form-group">
+          <label class="form-label">Aplicação Afetada</label>
+          <select class="form-input" name="applicationId" [(ngModel)]="formData.applicationId" required>
+            <option value="">Selecione...</option>
+            <option *ngFor="let app of applications" [value]="app.id">{{ app.name }}</option>
+          </select>
+        </div>
+
+        <div class="form-group">
+          <label class="form-label">Solicitante</label>
+          <select class="form-input" name="requesterId" [(ngModel)]="formData.requesterId" required>
+            <option value="">Selecione...</option>
+            <option *ngFor="let user of users" [value]="user.id">{{ user.name }} ({{ user.email }})</option>
+          </select>
+        </div>
+      </div>
+
+      <div class="grid grid-cols-3 gap-4">
+        <div class="form-group">
+          <label class="form-label">Categoria</label>
+          <select class="form-input" name="category" [(ngModel)]="formData.category">
+            <option [ngValue]="0">Software</option>
+            <option [ngValue]="1">Hardware</option>
+            <option [ngValue]="2">Rede</option>
+            <option [ngValue]="3">Acesso</option>
+            <option [ngValue]="4">Outros</option>
+          </select>
+        </div>
+
+        <div class="form-group">
+          <label class="form-label">Impacto</label>
+          <select class="form-input" name="impact" [(ngModel)]="formData.impact">
+            <option [ngValue]="0">Baixo</option>
+            <option [ngValue]="1">Médio</option>
+            <option [ngValue]="2">Alto</option>
+            <option [ngValue]="3">Crítico</option>
+          </select>
+        </div>
+
+        <div class="form-group">
+          <label class="form-label">Urgência</label>
+          <select class="form-input" name="urgency" [(ngModel)]="formData.urgency">
+            <option [ngValue]="0">Baixa</option>
+            <option [ngValue]="1">Média</option>
+            <option [ngValue]="2">Alta</option>
+            <option [ngValue]="3">Crítica</option>
+          </select>
+        </div>
+      </div>
+
+      <div style="margin-top: 2rem; display: flex; justify-content: flex-end;">
+        <button type="submit" class="btn btn-primary animate-pulse-glow" style="padding: 0.75rem 2rem;">Criar Incidente</button>
+      </div>
+    </form>
+  </div>
+</div>
