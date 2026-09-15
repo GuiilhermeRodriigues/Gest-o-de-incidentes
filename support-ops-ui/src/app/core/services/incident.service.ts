@@ -32,3 +32,8 @@ export class IncidentService {
   getUsers(): Observable<any[]> {
     return this.http.get<any[]>('http://localhost:5049/api/metadata/users');
   }
+
+  createIncident(data: any): Observable<IncidentResponse> {
+    return this.http.post<IncidentResponse>(this.apiUrl, data);
+  }
+}

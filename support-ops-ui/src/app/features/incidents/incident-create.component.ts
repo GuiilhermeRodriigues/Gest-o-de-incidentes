@@ -34,10 +34,10 @@ export class IncidentCreateComponent implements OnInit {
 
   onSubmit() {
     this.incidentService.createIncident(this.formData).subscribe({
-      next: (res) => {
+      next: (res: any) => {
         this.router.navigate(['/incidents']);
       },
-      error: (err) => {
+      error: (err: any) => {
         console.error('Erro ao criar incidente', err);
         alert('Erro ao criar incidente. Verifique o console.');
       }
